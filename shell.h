@@ -2,11 +2,13 @@
 #define SHELL_H
 
 #include <stdio.h>
-#include <signal.h>
+#include <string.h>
 #include <stdlib.h>
-#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+
+void disp_cmd(void);
+
 
 #endif
