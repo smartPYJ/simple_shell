@@ -49,7 +49,7 @@ void tokenizer(char *buf, char *buf_cpy);
 	while (token)
 	{
 		num_tok++;
-		token = strtok(NULL, delin);
+		token = strtok(NULL, delim);
 	}
 	num_tok++;
 	argv = malloc(sizeof(char *) * num_tok);
@@ -58,7 +58,7 @@ void tokenizer(char *buf, char *buf_cpy);
 	{
 		argv[i] = malloc(sizeof(char) * strlen(token));
 		strcpy(argv[i], token);
-	token = strtok(NULL, delim);
+		token = strtok(NULL, delim);
 
 		if (token == NULL)
 		{
@@ -72,8 +72,25 @@ void tokenizer(char *buf, char *buf_cpy);
 
 }
 void exec_cmd(char **argv)
+
 {
-	execve(argv[0], argv, NULL);
+	pid_t pid;
+
+	pid = fork();
+
+	/* in the parent */
+
+	if (fork() != 0)
+	{
+		wait(NULL);
+		read_cmd();
+	}
+	else
+	{
+		if (execve(argv[0], argv, NULL) == -1)
+			perror("Input new command");
+	}
+
 }
 	
 

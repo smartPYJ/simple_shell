@@ -9,6 +9,8 @@
 #include <unistd.h>
 
 void disp_cmd(void);
+void tokenizer(char *buf, char *buf_cpy);
+void exec_cmd(char **argv);
 
 
 #endif
