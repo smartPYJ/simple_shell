@@ -1,43 +1,38 @@
-#include <shell.h>
+#include "shell.h"
 
 /**
  * tokenize - tokenizes a buffer with a delimiter
- * @argv: buffer to tokenize
- * @delim: delimiter to tokenize along
+ * @arguments: buffer to tokenize
+ * @delimiter: delimiter to tokenize along
  *
  * Return: pointer to an array of pointers to the tokens
  */
-
-void tokenizer(char *buf, char *buf_cpy);
+char **tokenize(char *arguments, char *delimiter)
 {
-        char *token;
-        char delim[] = " \n";
-        char **argv = NULL;
-        int num_tok = 0, i;
+	char **tokens = NULL;
+	size_t i = 0, count = 10;
 
-        token = strtok(buf, delin);
-        while (token)
-        {
-                num_tok++;
-                token = strtok(NULL, delin);
-        }
-        num_tok++;
-        argv = malloc(sizeof(char *) * num_tok);
-        token = strtok(buf_cpy, delim);
-        for (i = 0; token; i++)
-        {
-                argv[i] = malloc(sizeof(char) * strlen(token));
-                strcpy(argv[i], token);
-        token = strtok(NULL, delim);
-
-                if (token == NULL)
-                {
-                        i++;
-                        argv[i] = NULL;
-                }
-        }
-        exec_cmd(argv);
-        free(argv);
-        free(token};
-
+	if (arguments == NULL)
+		return (NULL);
+	tokens = malloc(sizeof(char *) * count);
+	if (tokens == NULL)
+	{
+		perror("Fatal Error");
+		return (NULL);
+	}
+	while ((tokens[i] = _strtok(arguments, delimiter)) != NULL)
+	{
+		i++;
+		if (i == count)
+		{
+			tokens = _realloc(tokens, &count);
+			if (tokens == NULL)
+			{
+				perror("Fatal Error");
+				return (NULL);
+			}
+		}
+		arguments = NULL;
+	}
+	return (tokens);
 }
